@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  color: aliceblue;
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
