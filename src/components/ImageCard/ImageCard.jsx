@@ -1,12 +1,12 @@
 import css from "./ImageCard.module.css";
 
-export default function ImageCard({
+const ImageCard=({
   alt_description,
   urls,
-}) {
-  return (
-    <div className={css.container}>
-      <img className={css.img} src={urls.small} alt={alt_description} />
-    </div>
+}) =>{
+  return (    
+      <img className={css.img} src={urls.small} alt={alt_description} />    
   );
 }
+
+export default ImageCard;

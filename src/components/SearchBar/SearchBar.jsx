@@ -3,7 +3,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function SearchBar({ onSubmit }) {
+const SearchBar=({ onSubmit }) =>{
   const onSubmitBar = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -16,8 +16,8 @@ export default function SearchBar({ onSubmit }) {
     form.reset();
   };
 
-  return (<div>
-    <div><Toaster/></div>
+  return (
+    <div>    
     <header className={css.header}>
       <form className={css.form} onSubmit={onSubmitBar}>
         <input
@@ -29,11 +29,15 @@ export default function SearchBar({ onSubmit }) {
           placeholder="Search images and photos"
         />
         <button className={css.btn} type="submit">
-          <AiOutlineSearch size='18' /> Search
+          <AiOutlineSearch size='25' />
         </button>
       </form>
-    </header>
-  </div>
-    
+      </header>
+      <div>
+      <Toaster position="top-right" reverseOrder={false} />
+    </div>
+  </div>    
   );
 }
+
+export default SearchBar;

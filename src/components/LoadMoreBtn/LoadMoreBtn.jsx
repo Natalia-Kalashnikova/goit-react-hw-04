@@ -1,13 +1,13 @@
 import css from "./LoadMoreBtn.module.css";
-import { MdOutlineCloudDownload } from "react-icons/md";
 
-export default function LoadMoreBtn({ onClick }) {
+const LoadMoreBtn=({ onClick })=> {
   return (
     <div className={css.container}>
-      <button className={css.btn} onClick={onClick} type="button">
-        <MdOutlineCloudDownload size="20" />
+      <button className={css.btn} onClick={onClick} type="button">    
         Load more
       </button>
     </div>
   );
 }
+
+export default LoadMoreBtn;

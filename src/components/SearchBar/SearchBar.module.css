@@ -1,24 +1,50 @@
 .header {
   display: flex;
-  background-color: blue;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  padding: 5px 0;
+
+  background-color: #4e75ff;
 }
 
 .form {
-  margin: 5px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
+  position: relative;
 
-.input {
-  height: 25px;
-  border-radius: 8px;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .btn {
-  padding: 2px 4px;
-  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+
+  transform: translate(0, -50%);
+}
+
+.btn:hover {
+  box-shadow: #fff;
+}
+
+.input {
+  min-width: 280px;
+  padding: 5px 10px 5px 45px;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  outline: none;
 }

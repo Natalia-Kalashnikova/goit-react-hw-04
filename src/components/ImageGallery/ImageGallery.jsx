@@ -1,7 +1,7 @@
 import css from "./ImageGallery.module.css";
 import ImageCard from "../ImageCard/ImageCard";
 
-export default function ImageGallery({ items, onImageClick }) {
+const ImageGallery=({ items, onImageClick })=> {
   if (items.length === 0) {
     return;
   }
@@ -10,7 +10,7 @@ export default function ImageGallery({ items, onImageClick }) {
     <div className={css.gallery}>
      <ul className={css.list}>
       {items.map(({ id, alt_description, urls, likes, user }) => (
-        <li key={id} onClick={() => onImageClick(urls.regular, alt_description, user.name, likes)}>
+        <li className={css.galleryItem} key={id} onClick={() => onImageClick(urls.regular, alt_description, user.name, likes)}>
           <ImageCard
             alt_description={alt_description}
             urls={urls}
@@ -20,7 +20,8 @@ export default function ImageGallery({ items, onImageClick }) {
         </li>
       ))}
     </ul> 
-    </div>
-    
+    </div>    
   );
 }
+
+export default ImageGallery;

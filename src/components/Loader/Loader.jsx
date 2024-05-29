@@ -1,8 +1,7 @@
 import { Grid } from "react-loader-spinner";
- import css from './Loader.module.css'
+import css from './Loader.module.css'
 
-export default function Loader() { 
-    
+const Loader=()=> {     
 
     return (
         <div className={css.loader}>
@@ -10,7 +9,7 @@ export default function Loader() {
             visible={true}
             height="60"
             width="60"
-            color="blue"
+            color="#4e75ff"
             ariaLabel="grid-loading"
             radius="12.5"
             wrapperStyle={{}}
@@ -18,4 +17,6 @@ export default function Loader() {
             />
         </div>
     )
- }
+}
+ 
+export default Loader;
