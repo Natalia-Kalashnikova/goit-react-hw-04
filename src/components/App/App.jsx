@@ -9,7 +9,7 @@ import ImageModal from '../ImageModal/ImageModal';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
-import css from './App.module.css';
+// import css from './App.module.css';
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -19,9 +19,7 @@ const App = () => {
   const [error, setError] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isEmpty, setEmpty] = useState(false);
-  const [isVisible, setVisible] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
+  const [showBtn, setShowBtn] = useState(false);
   const appRef = useRef();
   
   useEffect(() => {
@@ -29,17 +27,12 @@ const App = () => {
       return;
     }
     const getImages = async () => {
-      setLoader(true);
+      setLoader(true);      
       try {
-        const newImages = await fetchImages(page, query);
-        if (!newImages.length) {
-          setEmpty(true);
-        } else {
-          setEmpty(false);
-          setImages((prevImages) => [...prevImages, ...newImages]);
-          setVisible(page > 0);
-          setTotalPages(newImages.total_pages);
-        }
+        setError(false);
+        const data = await fetchImages(page, query);
+          setImages((prevImages) => [...prevImages, ...data.results]);          
+          setShowBtn(data.total_pages && data.total_pages !== page);        
       } catch (error) {
         setError(true);
         toast.error("Oops! Something went wrong. Please try again later...");
@@ -58,8 +51,7 @@ const App = () => {
   const handleSubmit = (query) => {
     setQuery(query);
     setPage(1);
-    setImages([]);
-    setEmpty(false);
+    setImages([]); 
   };
 
   const handleLoadMore = () => {
@@ -82,10 +74,9 @@ const App = () => {
       {images.length > 0 && (
         <ImageGallery items={images} onImageClick={openModal} />
       )}
-      {error && <ErrorMessage />}
-      {isEmpty && <p className={css.error}>Sorry. There are no images ... 😭</p>}
+      {error && <ErrorMessage />}      
       {loader && <Loader />}
-      {!loader && isVisible && !isEmpty && (!totalPages || page < totalPages) && (
+      {images.length > 0 && !loader && showBtn && (
   <LoadMoreBtn onClick={handleLoadMore} />
       )}
       <ImageModal

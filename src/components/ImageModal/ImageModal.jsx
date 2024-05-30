@@ -20,7 +20,7 @@ Modal.setAppElement("#root");
         <div className={css.container}>
           <img src={imageUrl} alt={altDescription} />
           <ul className={css.list}>
-            <li className={css.item}><AiFillLike /> <span className={css.text}>{likes}</span></li>            
+            <li className={css.item}><AiFillLike /> <span className={css.text}>{likes}</span></li>
             <li className={css.item}>Author:<p className={css.text}> {authorName}</p></li>
           </ul>
         </div>

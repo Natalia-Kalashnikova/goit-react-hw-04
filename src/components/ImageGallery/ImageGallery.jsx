@@ -11,13 +11,16 @@ const ImageGallery=({ items, onImageClick })=> {
             alt_description={alt_description}
             urls={urls}
             likes={likes}
-            user={user}            
+            user={user}
           />
         </li>
       ))}
-    </ul> 
-    </div>    
+    </ul>
+    </div>
   );
 }
 
 export default ImageGallery;
+
+
+
