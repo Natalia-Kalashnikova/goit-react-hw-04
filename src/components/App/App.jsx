@@ -9,7 +9,7 @@ import ImageModal from '../ImageModal/ImageModal';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
-import './App.module.css';
+import css from './App.module.css';
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -83,7 +83,7 @@ const App = () => {
         <ImageGallery items={images} onImageClick={openModal} />
       )}
       {error && <ErrorMessage />}
-      {isEmpty && <p>Sorry. There are no images ... 😭</p>}
+      {isEmpty && <p className={css.error}>Sorry. There are no images ... 😭</p>}
       {loader && <Loader />}
       {!loader && isVisible && !isEmpty && (!totalPages || page < totalPages) && (
   <LoadMoreBtn onClick={handleLoadMore} />
