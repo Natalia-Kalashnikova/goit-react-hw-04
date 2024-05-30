@@ -18,5 +18,3 @@ const fetchImages = async (currentPage, searchQuery) => {
 };
 
 export default fetchImages;
-
-
