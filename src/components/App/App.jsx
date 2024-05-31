@@ -9,8 +9,6 @@ import ImageModal from '../ImageModal/ImageModal';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
-// import css from './App.module.css';
-
 const App = () => {
   const [images, setImages] = useState([]);
   const [query, setQuery] = useState("");
@@ -31,8 +29,12 @@ const App = () => {
       try {
         setError(false);
         const data = await fetchImages(page, query);
-          setImages((prevImages) => [...prevImages, ...data.results]);          
-          setShowBtn(data.total_pages && data.total_pages !== page);        
+        if (data.results.length === 0) {
+          toast.error("Sorry. There are no images ... 😭");
+        } else {
+          setImages((prevImages) => [...prevImages, ...data.results]);
+          setShowBtn(data.total_pages && data.total_pages !== page);
+        }        
       } catch (error) {
         setError(true);
         toast.error("Oops! Something went wrong. Please try again later...");
@@ -58,35 +60,39 @@ const App = () => {
     setPage(page + 1);
   };
 
-  const openModal = (imageUrl, altDescription, authorName, likes) => {
-    setSelectedImage({ imageUrl, altDescription, authorName, likes });
+  const openModal = (image) => { 
+    setSelectedImage(image); 
     setIsOpen(true);
-  };
+  }
 
   const closeModal = () => {
-    setSelectedImage(null);
     setIsOpen(false);
-  };
+     setSelectedImage(null);
+  }
 
   return (
     <div ref={appRef}>
       <SearchBar onSubmit={handleSubmit} />
       {images.length > 0 && (
-        <ImageGallery items={images} onImageClick={openModal} />
+        <ImageGallery images={images} onImageClick={openModal} />
       )}
       {error && <ErrorMessage />}      
       {loader && <Loader />}
       {images.length > 0 && !loader && showBtn && (
-  <LoadMoreBtn onClick={handleLoadMore} />
+        <LoadMoreBtn onClick={handleLoadMore} />
       )}
-      <ImageModal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        imageInfo={selectedImage}
-      />
+      {selectedImage && ( 
+        <ImageModal 
+          isOpen={modalIsOpen} 
+          onClose={closeModal} 
+          regular={selectedImage.urls.regular} 
+          altDescription={selectedImage.description} 
+          likes={selectedImage.likes} 
+          user={selectedImage.user.name} 
+        /> 
+      )} 
     </div>
   )
 }
 
 export default App;
-

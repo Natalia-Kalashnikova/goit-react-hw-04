@@ -1,42 +1,38 @@
-import css from "./SearchBar.module.css";
+import { Field, Form, Formik } from 'formik';
+import { toast, Toaster } from 'react-hot-toast';
 import { AiOutlineSearch } from "react-icons/ai";
+import css from './SearchBar.module.css';
 
-import toast, { Toaster } from 'react-hot-toast';
-
-const SearchBar=({ onSubmit }) =>{
-  const onSubmitBar = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const data = form.elements.topic.value;
-    if (data === "") {
-      toast.error("Please, enter your request!");
-      return;
-    }
-    onSubmit(data);
-    form.reset();
-  };
-
+const SearchBar=({ onSubmit })=> {
   return (
-    <div>    
     <header className={css.header}>
-      <form className={css.form} onSubmit={onSubmitBar}>
-        <input
-          className={css.input}
-          type="text"
-          name="topic"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-        <button className={css.btn} type="submit">
+      <Formik
+        initialValues={{ query: '' }}
+        onSubmit={(values, actions) => {
+          if (values.query.trim() === '') {
+            toast.error('Please enter a keyword of search!');
+            return;
+          }
+          onSubmit(values.query);
+          actions.resetForm();
+        }}
+      >
+        <Form className={css.form}>
+          <Field
+            className={css.input}
+            type="text"
+            name="query"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          ></Field>
+          <button className={css.btn} type="submit">
           <AiOutlineSearch size='25' />
-        </button>
-      </form>
-      </header>
-      <div>
-      <Toaster position="top-right" reverseOrder={false} />
-    </div>
-  </div>    
+         </button>
+          <Toaster position="top-right" reverseOrder={false} />
+        </Form>
+      </Formik>
+    </header>
   );
 }
 

@@ -4,30 +4,43 @@ import { AiFillLike } from "react-icons/ai";
 
 Modal.setAppElement("#root");
 
-  const ImageModal=({ isOpen, onRequestClose, imageInfo })=> {
-  const { imageUrl, altDescription, authorName, likes } = imageInfo || {};
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: 'none',
+    outline: 'none',
+    maxHeight: '95vh',
+    overflowY: 'auto',
+  },
+};
 
-  return (
+  const ImageModal=({ isOpen, onClose, regular, altDescription, likes, user })=> {
+     return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      onRequestClose={onClose}
+      style={customStyles}
+      contentLabel="Image Modal"
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
-      overlayClassName="Overlay"
-      className="Modal"
-    >
-      {imageUrl && (
+      overlayClassName={css.Overlay}
+      className={css.Modal}
+      bodyOpenClassName={css.modalOpen}
+    >      
         <div className={css.container}>
-          <img src={imageUrl} alt={altDescription} />
+          <img className={css.img} src={regular} alt={altDescription} />
           <ul className={css.list}>
             <li className={css.item}><AiFillLike /> <span className={css.text}>{likes}</span></li>
-            <li className={css.item}>Author:<p className={css.text}> {authorName}</p></li>
+            <li className={css.item}>Author:<p className={css.text}> {user}</p></li>
           </ul>
-        </div>
-      )}
+        </div>      
     </Modal>
   );
 }
 
 export default ImageModal;
-
