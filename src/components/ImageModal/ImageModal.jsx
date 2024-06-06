@@ -14,7 +14,7 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
     border: 'none',
     outline: 'none',
-    maxHeight: '95vh',
+    maxHeight: '90vh',
     overflowY: 'auto',
   },
 };
